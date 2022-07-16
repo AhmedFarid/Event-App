@@ -5,13 +5,16 @@
 //  Created by macbook on 15/07/2022.
 //
 
-import Foundation
+import CoreData
 import UIKit
 
 struct EventCellViewModel {
   let date = Date()
   private static let imageCache = NSCache<NSString, UIImage>()
   private let imageQueue = DispatchQueue(label: "imageQueue", qos: .background)
+  
+  var onSelect: (NSManagedObjectID) -> Void = {_ in}
+  
   private var cacheKey: String {
     event.objectID.description
   }
@@ -33,6 +36,13 @@ struct EventCellViewModel {
     event.name
   }
   
+  var timeRemainingViewModel: TimeRemainingViewModel? {
+    guard let eventDate = event.date, let timeRemainingParts = date.timeRemaining(until: eventDate)?.components(separatedBy: ",") else {return nil}
+    
+    return TimeRemainingViewModel(timeRemainingParts: timeRemainingParts, mode: .cell)
+  }
+  
+  
   func loadImage(completion: @escaping (UIImage?) -> Void) {
     //check image cache for a value of the cache key and complete with this image value
     if let image = Self.imageCache.object(forKey: cacheKey as NSString) {
@@ -48,18 +58,14 @@ struct EventCellViewModel {
         DispatchQueue.main.async {
           completion(image)
         }
-       
       }
-      
     }
-    
   }
   
-  //  var backgroundImage: UIImage {
-  // every time scroller load image
-  //    guard let imageDate = event.image else {return UIImage()}
-  //    return UIImage(data: imageDate) ?? UIImage()
-  //  }
+  func didSelect() {
+    onSelect(event.objectID)
+  }
+  
   
   private let event: Event
   

@@ -29,4 +29,8 @@ extension EventListVC: UITableViewDelegate, UITableViewDataSource {
     }
   }
   
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    viewModel.didSelectRow(at: indexPath)
+  }
+  
 }

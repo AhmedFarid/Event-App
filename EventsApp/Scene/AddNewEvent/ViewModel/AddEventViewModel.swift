@@ -8,7 +8,7 @@
 import Foundation
 
 final class AddEventViewModel {
-  var coordinator: AddEventCoordinator?
+  weak var coordinator: AddEventCoordinator?
   private(set) var cells: [AddEventViewModel.Cell] = []
   private let cellBuilder: EventCellBuilder
   private let coreDateManger: CoreDataManger

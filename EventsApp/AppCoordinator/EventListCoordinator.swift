@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 final class EventListCoordinator: Coordinator {
   
@@ -26,6 +27,14 @@ final class EventListCoordinator: Coordinator {
     onSaveEvent = eventListViewModel.reload
     eventListViewModel.coordinator = self
     navigationController.setViewControllers([vc], animated: true)
+  }
+  
+  func onSelect(_ id: NSManagedObjectID) {
+    //tigger event details coordinator
+    let eventDetailCoordinator = EventDetailCoordinator(eventId: id, navigationController: navigationController)
+    eventDetailCoordinator.parentCoordinator = self
+    childCoordinators.append(eventDetailCoordinator)
+    eventDetailCoordinator.start()
   }
   
   func startAddEvent() {
