@@ -18,15 +18,15 @@ final class EventListViewModel {
   }
   
   private(set) var cells: [Cell] = []
-  private let coreDateManger: CoreDataManger
+  private let eventService: EventServicesProtocol
   
-  init(coreDateManger: CoreDataManger = CoreDataManger.shared) {
-    self.coreDateManger = coreDateManger
+  init(eventService: EventServicesProtocol = EventServices()) {
+    self.eventService = eventService
   }
   
   func reload() {
     EventCellViewModel.imageCache.removeAllObjects()
-    let events = coreDateManger.fetchEvents()
+    let events = eventService.getEvents()
     cells = events.map {
       var eventCellViewModel = EventCellViewModel($0)
       if let coordinator = coordinator {

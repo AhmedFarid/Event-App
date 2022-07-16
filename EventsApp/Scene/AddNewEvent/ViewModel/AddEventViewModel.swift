@@ -11,7 +11,7 @@ final class AddEventViewModel {
   weak var coordinator: AddEventCoordinator?
   private(set) var cells: [AddEventViewModel.Cell] = []
   private let cellBuilder: EventCellBuilder
-  private let coreDateManger: CoreDataManger
+  private let eventService: EventServicesProtocol
   
   private var nameCellViewModel: TitleSubtitleCellViewModel?
   private var dateCellViewModel: TitleSubtitleCellViewModel?
@@ -32,9 +32,9 @@ final class AddEventViewModel {
     case titleSubtitle(TitleSubtitleCellViewModel)
   }
   
-  init(cellBuilder: EventCellBuilder,coreDateManger: CoreDataManger = CoreDataManger.shared) {
+  init(cellBuilder: EventCellBuilder,eventService: EventServicesProtocol = EventServices()) {
     self.cellBuilder = cellBuilder
-    self.coreDateManger = coreDateManger
+    self.eventService = eventService
   }
   
 
@@ -60,7 +60,7 @@ final class AddEventViewModel {
     //extract info from cell view models and save in core data
     guard let name = nameCellViewModel?.subtitle, let dateString = dateCellViewModel?.subtitle, let image = backgroundImageCellViewModel?.image, let date = dateFormater.date(from: dateString) else {return}
     
-    coreDateManger.saveEvent(name: name, date: date, image: image)
+    eventService.perform(.add, data: EventServices.EventInputDate(name: name, date: date, image: image))
     //tell coordinator to dismiss
     coordinator?.didFinishSaveEvent()
   }

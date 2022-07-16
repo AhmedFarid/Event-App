@@ -12,7 +12,7 @@ final class EditEventViewModel {
   weak var coordinator: EditEventCoordinator?
   private(set) var cells: [EditEventViewModel.Cell] = []
   private let cellBuilder: EventCellBuilder
-  private let coreDateManger: CoreDataManger
+  private let eventService: EventServicesProtocol
   
   private var nameCellViewModel: TitleSubtitleCellViewModel?
   private var dateCellViewModel: TitleSubtitleCellViewModel?
@@ -34,13 +34,13 @@ final class EditEventViewModel {
     case titleSubtitle(TitleSubtitleCellViewModel)
   }
   
-  init(cellBuilder: EventCellBuilder,coreDateManger: CoreDataManger = CoreDataManger.shared,event: Event) {
+  init(cellBuilder: EventCellBuilder,eventService: EventServicesProtocol = EventServices(),event: Event) {
     self.cellBuilder = cellBuilder
-    self.coreDateManger = coreDateManger
+    self.eventService = eventService
     self.event = event
   }
   
-
+  
   
   func viewDidLoad() {
     setupCells()
@@ -62,8 +62,7 @@ final class EditEventViewModel {
   func tapDone() {
     //extract info from cell view models and save in core data
     guard let name = nameCellViewModel?.subtitle, let dateString = dateCellViewModel?.subtitle, let image = backgroundImageCellViewModel?.image, let date = dateFormater.date(from: dateString) else {return}
-    
-    coreDateManger.updateEvent(event: event,name: name, date: date, image: image)
+    eventService.perform(.update(event), data: EventServices.EventInputDate(name: name, date: date, image: image))
     //tell coordinator to dismiss
     coordinator?.didFinishUpdateEvent()
   }
@@ -105,7 +104,7 @@ private extension EditEventViewModel {
     }
     
     guard let nameCellViewModel = nameCellViewModel, let dateCellViewModel = dateCellViewModel, let backgroundImageCellViewModel = backgroundImageCellViewModel else {return}
-     
+    
     cells = [
       .titleSubtitle(nameCellViewModel),
       .titleSubtitle(dateCellViewModel),

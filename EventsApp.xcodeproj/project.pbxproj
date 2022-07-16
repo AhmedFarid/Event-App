@@ -40,6 +40,7 @@
 		FA5A4DA7287FB1190026B570 /* AddEventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5A4DA6287FB1190026B570 /* AddEventViewModel.swift */; };
 		FA9EE4A8288314FF0036250F /* EditEvent + Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9EE4A7288314FF0036250F /* EditEvent + Delegate.swift */; };
 		FA9EE4AB288315670036250F /* EditEventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9EE4AA288315670036250F /* EditEventViewModel.swift */; };
+		FA9EE4AE2883293E0036250F /* EventServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9EE4AD2883293E0036250F /* EventServices.swift */; };
 		FAC00A042881BE31009FDA7B /* EventCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC00A032881BE31009FDA7B /* EventCellViewModel.swift */; };
 		FAC00A072881BFDA009FDA7B /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC00A062881BFDA009FDA7B /* EventCell.swift */; };
 		FAC00A092881C58E009FDA7B /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC00A082881C58E009FDA7B /* UIView+Extensions.swift */; };
@@ -107,6 +108,7 @@
 		FA5A4DA6287FB1190026B570 /* AddEventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventViewModel.swift; sourceTree = "<group>"; };
 		FA9EE4A7288314FF0036250F /* EditEvent + Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditEvent + Delegate.swift"; sourceTree = "<group>"; };
 		FA9EE4AA288315670036250F /* EditEventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEventViewModel.swift; sourceTree = "<group>"; };
+		FA9EE4AD2883293E0036250F /* EventServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventServices.swift; sourceTree = "<group>"; };
 		FAC00A032881BE31009FDA7B /* EventCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCellViewModel.swift; sourceTree = "<group>"; };
 		FAC00A062881BFDA009FDA7B /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 		FAC00A082881C58E009FDA7B /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 		FA5A4D54287F77DC0026B570 /* EventsApp */ = {
 			isa = PBXGroup;
 			children = (
+				FA9EE4AC288329280036250F /* CoreDataServices */,
 				FA5A4D92287F955A0026B570 /* Extensions */,
 				FA5A4D8B287F91A40026B570 /* Scene */,
 				FA5A4D85287F8E870026B570 /* AppCoordinator */,
@@ -355,6 +358,14 @@
 				FA9EE4AA288315670036250F /* EditEventViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		FA9EE4AC288329280036250F /* CoreDataServices */ = {
+			isa = PBXGroup;
+			children = (
+				FA9EE4AD2883293E0036250F /* EventServices.swift */,
+			);
+			path = CoreDataServices;
 			sourceTree = "<group>";
 		};
 		FAC00A052881BFCE009FDA7B /* EventCell */ = {
@@ -536,6 +547,7 @@
 				FA5A4D9C287FAC100026B570 /* EventListViewModel.swift in Sources */,
 				FA4E3CA228826DAF00A98DC3 /* EditEventCoordinator.swift in Sources */,
 				FA5A4D58287F77DC0026B570 /* SceneDelegate.swift in Sources */,
+				FA9EE4AE2883293E0036250F /* EventServices.swift in Sources */,
 				FA5A4D9E287FAD6B0026B570 /* AddEventCoordinator.swift in Sources */,
 				FAC00A0B2881CBEB009FDA7B /* EventListVC + Delegate.swift in Sources */,
 				FA5A4D8A287F90FC0026B570 /* EventListCoordinator.swift in Sources */,
