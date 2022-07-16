@@ -25,6 +25,7 @@ final class EventListViewModel {
   }
   
   func reload() {
+    EventCellViewModel.imageCache.removeAllObjects()
     let events = coreDateManger.fetchEvents()
     cells = events.map {
       var eventCellViewModel = EventCellViewModel($0)

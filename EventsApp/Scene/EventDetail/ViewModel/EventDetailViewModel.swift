@@ -47,19 +47,21 @@ final class EventDetailViewModel {
   }
   
   func viewDidLoad() {
-    event = coreDateManger.getEvent(eventId)
-    onUpdate()
+    reload()
   }
-  
+
   func viewDidDisapper() {
     coordinator?.didFinish()
   }
   
+  func reload() {
+    event = coreDateManger.getEvent(eventId)
+    onUpdate()
+  }
+  
   @objc func editButtonTapped() {
     guard let event = event else {return}
-    //coordinator?.onEditEvent(event) {
-      
-    //}
+    coordinator?.onEditEvent(event: event)
   }
   
 }

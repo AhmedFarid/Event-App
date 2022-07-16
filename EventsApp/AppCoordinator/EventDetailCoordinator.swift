@@ -9,10 +9,12 @@ import UIKit
 import CoreData
 
 final class EventDetailCoordinator: Coordinator {
-  var childCoordinators: [Coordinator] = []
+  private(set) var childCoordinators: [Coordinator] = []
   
   private let navigationController: UINavigationController
   private let eventId: NSManagedObjectID
+  
+  var onUpdateEvent = {}
   
   var parentCoordinator: EventListCoordinator?
   
@@ -26,6 +28,10 @@ final class EventDetailCoordinator: Coordinator {
     let vc = EventDetailVC(nibName: "EventDetailVC", bundle: nil)
     let eventDetailViewModel = EventDetailViewModel(eventId: eventId)
     eventDetailViewModel.coordinator = self
+    onUpdateEvent =  {
+      eventDetailViewModel.reload()
+      self.parentCoordinator?.onUpdateEvent()
+    }
     //event detail view model
     vc.viewModel = eventDetailViewModel
     // push it into navigation controller
@@ -37,12 +43,25 @@ final class EventDetailCoordinator: Coordinator {
   }
   
   func onEditEvent(event: Event) {
-    
+    let editEventCoordinator = EditEventCoordinator(navigationController: navigationController, event: event)
+    editEventCoordinator.parentCoordinator = self
+    childCoordinators.append(editEventCoordinator)
+    editEventCoordinator.start()
+  }
+  
+  func childDidFinish(_ childCoordinator: Coordinator) {
+    print(CoreDataManger().fetchEvents().last?.name ?? "" )
+    if let index = childCoordinators.firstIndex(where: { coordinator -> Bool in
+      return childCoordinator === coordinator
+    }) {
+      childCoordinators.remove(at: index)
+    }
   }
   
   deinit {
     print("detail coordinator deinit")
   }
+  
   
 }
 
